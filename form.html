@@ -1,26 +1,55 @@
-<!-- Zweite Landing Page mit Formular -->
 <!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AdMerchant Center - Kontaktformular</title>
+  <title>AdMerchant Center – Jetzt unverbindlich anfragen</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800">
-  <!-- Header übernommen vom ersten Design -->
+
+  <!-- Header -->
   <header class="bg-white shadow">
     <div class="container mx-auto flex justify-between items-center p-6">
       <h1 class="text-2xl font-bold">AdMerchant Center</h1>
       <nav>
-        <a href="index.html" class="mr-6 hover:text-blue-600">Startseite</a>
-        <a href="kontakt.html" class="hover:text-blue-600">Kontakt</a>
+        <a href="#" class="mr-6 hover:text-blue-600">Startseite</a>
+        <a href="#kontakt" class="hover:text-blue-600">Kontakt</a>
       </nav>
     </div>
   </header>
 
+  <!-- Hero Section -->
+  <section class="bg-blue-600 text-white py-24">
+    <div class="container mx-auto text-center px-4">
+      <h2 class="text-4xl font-extrabold mb-4">Skaliere Dein Business mit smarter Werbung</h2>
+      <p class="text-lg mb-8">Wir bieten dir personalisierte Video-, Display- und Carousel-Ads für maximale Reichweite.</p>
+      <a href="#kontakt" class="inline-block bg-white text-blue-600 font-semibold py-3 px-6 rounded-lg hover:bg-gray-100">
+        Jetzt unverbindlich anfragen
+      </a>
+    </div>
+  </section>
+
+  <!-- Vorteile -->
+  <section class="container mx-auto py-16 px-4">
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <h3 class="text-2xl font-bold mb-2">Performance</h3>
+        <p>Messbare Erfolge durch datengetriebenes Campaign-Management.</p>
+      </div>
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <h3 class="text-2xl font-bold mb-2">Skalierbarkeit</h3>
+        <p>Egal ob lokale Shops oder internationale Brands – wir haben die Lösung.</p>
+      </div>
+      <div class="bg-white p-8 rounded-lg shadow text-center">
+        <h3 class="text-2xl font-bold mb-2">Support</h3>
+        <p>Persönlicher Ansprechpartner für schnelle und kompetente Hilfe.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- Formular-Sektion -->
-  <section class="container mx-auto py-16">
+  <section id="kontakt" class="container mx-auto py-16 px-4">
     <h2 class="text-3xl font-extrabold text-center mb-8">Jetzt unverbindlich anfragen</h2>
     <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow">
       <form id="leadForm" class="space-y-6">
@@ -53,7 +82,7 @@
           </div>
         </div>
         <div>
-          <label for="shopType" class="block text-sm font-medium mb-1">Shoptyp</label>
+          <label for="shopType" class="block text-sm font-medium mb-1">Produkt-Katalog-Source:</label>
           <select id="shopType" name="shopType" class="w-full border-gray-300 rounded p-2">
             <option>Shopify Connector</option>
             <option>Shopware Connector</option>
@@ -74,41 +103,32 @@
         </div>
         <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">Absenden</button>
       </form>
-      <p id="thanks" class="mt-4 text-green-600 text-center hidden">Vielen Dank für deine Anfrage!</p>
     </div>
   </section>
 
+  <!-- Footer -->
+  <footer class="bg-white py-6">
+    <div class="container mx-auto text-center text-sm text-gray-600">
+      © 2025 AdMerchant Center. Alle Rechte vorbehalten.
+    </div>
+  </footer>
+
+  <!-- JS: Daten löschen & Weiterleiten -->
   <script>
-    document.getElementById('leadForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const form = e.target;
-      const data = {
-        company: form.company.value,
-        contact: form.contact.value,
-        email: form.email.value,
-        category: form.category.value,
-        delivery: Array.from(form.delivery).filter(c => c.checked).map(c => c.value),
-        shopType: form.shopType.value,
-        network: Array.from(form.network).filter(n => n.checked).map(n => n.value),
-        message: form.message.value
-      };
-      try {
-        const res = await fetch('/api/lead', {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(data)
-        });
-        const json = await res.json();
-        if (json.success) {
-          form.reset();
-          document.getElementById('thanks').classList.remove('hidden');
-        }
-      } catch (err) {
-        console.error(err);
-      }
+    document.getElementById('leadForm').addEventListener('submit', function(e) {
+      e.preventDefault();               // Standard-Submit unterbinden
+
+      // 1. LocalStorage & SessionStorage löschen
+      localStorage.clear();
+      sessionStorage.clear();
+
+      // 2. Formular zurücksetzen
+      this.reset();
+
+      // 3. Weiterleitung auf Thank-You-Page
+      window.location.href = 'thankyou.html';
     });
   </script>
+
 </body>
 </html>
-
-
