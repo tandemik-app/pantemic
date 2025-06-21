@@ -1,0 +1,114 @@
+<!-- Zweite Landing Page mit Formular -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdMerchant Center - Kontaktformular</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Header übernommen vom ersten Design -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto flex justify-between items-center p-6">
+      <h1 class="text-2xl font-bold">AdMerchant Center</h1>
+      <nav>
+        <a href="index.html" class="mr-6 hover:text-blue-600">Startseite</a>
+        <a href="kontakt.html" class="hover:text-blue-600">Kontakt</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Formular-Sektion -->
+  <section class="container mx-auto py-16">
+    <h2 class="text-3xl font-extrabold text-center mb-8">Jetzt unverbindlich anfragen</h2>
+    <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow">
+      <form id="leadForm" class="space-y-6">
+        <div>
+          <label for="company" class="block text-sm font-medium mb-1">Firmenname</label>
+          <input type="text" id="company" name="company" required class="w-full border-gray-300 rounded p-2" />
+        </div>
+        <div>
+          <label for="contact" class="block text-sm font-medium mb-1">Ansprechpartner</label>
+          <input type="text" id="contact" name="contact" required class="w-full border-gray-300 rounded p-2" />
+        </div>
+        <div>
+          <label for="email" class="block text-sm font-medium mb-1">E-Mail-Adresse</label>
+          <input type="email" id="email" name="email" required class="w-full border-gray-300 rounded p-2" />
+        </div>
+        <div>
+          <label for="category" class="block text-sm font-medium mb-1">Produktkategorie</label>
+          <select id="category" name="category" class="w-full border-gray-300 rounded p-2">
+            <option>Video Ads</option>
+            <option>Display Ads</option>
+            <option>Carousel Ads</option>
+          </select>
+        </div>
+        <div>
+          <span class="block text-sm font-medium mb-1">Wunschlieferdienst</span>
+          <div class="flex space-x-4">
+            <label><input type="checkbox" name="delivery" value="DoorDash" /> DoorDash</label>
+            <label><input type="checkbox" name="delivery" value="Flink" /> Flink</label>
+            <label><input type="checkbox" name="delivery" value="Andere" /> Andere</label>
+          </div>
+        </div>
+        <div>
+          <label for="shopType" class="block text-sm font-medium mb-1">Shoptyp</label>
+          <select id="shopType" name="shopType" class="w-full border-gray-300 rounded p-2">
+            <option>Shopify Connector</option>
+            <option>Shopware Connector</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium mb-1">Werbenetzwerk</label>
+          <div class="flex flex-col space-y-2">
+            <label><input type="checkbox" name="network" value="TikTok" /> TikTok</label>
+            <label><input type="checkbox" name="network" value="Meta" /> Meta</label>
+            <label><input type="checkbox" name="network" value="Google" /> Google</label>
+            <label><input type="checkbox" name="network" value="TrafficJunkiez" /> TrafficJunkiez</label>
+          </div>
+        </div>
+        <div>
+          <label for="message" class="block text-sm font-medium mb-1">Nachricht</label>
+          <textarea id="message" name="message" rows="4" class="w-full border-gray-300 rounded p-2"></textarea>
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">Absenden</button>
+      </form>
+      <p id="thanks" class="mt-4 text-green-600 text-center hidden">Vielen Dank für deine Anfrage!</p>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById('leadForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const data = {
+        company: form.company.value,
+        contact: form.contact.value,
+        email: form.email.value,
+        category: form.category.value,
+        delivery: Array.from(form.delivery).filter(c => c.checked).map(c => c.value),
+        shopType: form.shopType.value,
+        network: Array.from(form.network).filter(n => n.checked).map(n => n.value),
+        message: form.message.value
+      };
+      try {
+        const res = await fetch('/api/lead', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(data)
+        });
+        const json = await res.json();
+        if (json.success) {
+          form.reset();
+          document.getElementById('thanks').classList.remove('hidden');
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
+
+

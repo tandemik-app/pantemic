@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merchant Center für Product Carousel Ads</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto flex justify-between items-center p-6">
+      <h1 class="text-2xl font-bold">AdMerchant Center</h1>
+      <nav>
+        <a href="#features" class="mr-6 hover:text-blue-600">Features</a>
+        <a href="#carousel" class="mr-6 hover:text-blue-600">Carousel Designer</a>
+        <a href="#integration" class="hover:text-blue-600">Integrationen</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="bg-gradient-to-r from-purple-600 to-blue-500 text-white py-20">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl font-extrabold mb-4">Design your Catalog Ads and unleash their super‑powers</h2>
+      <p class="mb-6">Pornhub erhält durchschnittlich 133 Millionen Besucher täglich</p>
+      <a href="#signup" class="bg-yellow-400 text-gray-900 px-8 py-4 rounded-full font-semibold hover:bg-yellow-500">Become an Advertiser!</a>
+    </div>
+  </section>
+
+  <!-- Statistics -->
+  <section class="container mx-auto py-12 text-center">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+      <div>
+        <h3 class="text-3xl font-bold">133M+</h3>
+        <p>Besucher täglich</p>
+      </div>
+      <div>
+        <h3 class="text-3xl font-bold">High Volumes</h3>
+        <p>Gezielter Traffic</p>
+      </div>
+      <div>
+        <h3 class="text-3xl font-bold">Pay-per-Impression</h3>
+        <p>Nur für benötigte Impressions</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section id="features" class="bg-white py-12">
+    <div class="container mx-auto grid md:grid-cols-2 gap-10">
+      <div>
+        <h3 class="text-2xl font-bold mb-4">Tailored online global marketing</h3>
+        <p>Wähle spezifische Platzierungen, um deine Ads genau vor den richtigen Kunden zu platzieren. Global, Länder- oder Stadtauswahl – du entscheidest.</p>
+      </div>
+      <div>
+        <h3 class="text-2xl font-bold mb-4">Flexible Ad Serving Platform</h3>
+        <p>Unsere automatisierte Plattform sorgt für optimale Ausspielung deiner Ads. Erreiche deine Ziele mit Video-, Display- und weiteren Formaten über unser exklusives Publisher-Netzwerk (TrafficJunky DSP).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Carousel Designer -->
+  <section id="carousel" class="py-12">
+    <div class="container mx-auto text-center">
+      <h3 class="text-2xl font-bold mb-6">Product Carousel Ad Designer</h3>
+      <!-- Simple Carousel Placeholder -->
+      <div class="relative w-full max-w-4xl mx-auto">
+        <div class="overflow-hidden rounded-lg shadow-lg">
+          <div class="whitespace-nowrap transition-transform duration-500" id="carouselInner">
+            <img src="https://via.placeholder.com/600x300?text=Produkt+1" class="inline-block w-full" alt="Produkt 1">
+            <img src="https://via.placeholder.com/600x300?text=Produkt+2" class="inline-block w-full" alt="Produkt 2">
+            <img src="https://via.placeholder.com/600x300?text=Produkt+3" class="inline-block w-full" alt="Produkt 3">
+          </div>
+        </div>
+        <!-- Controls -->
+        <button onclick="prevSlide()" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full">‹</button>
+        <button onclick="nextSlide()" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full">›</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integration -->
+  <section id="integration" class="bg-white py-12">
+    <div class="container mx-auto text-center">
+      <h3 class="text-2xl font-bold mb-6">Superfast Delivery Integrationen</h3>
+      <div class="flex justify-center items-center space-x-12">
+        <img src="https://via.placeholder.com/120x60?text=DoorDash" alt="DoorDash Logo" />
+        <img src="https://via.placeholder.com/120x60?text=Flink" alt="Flink Logo" />
+      </div>
+      <p class="mt-4">Schicke deine Produktdaten direkt an unsere Lieferpartner für blitzschnelle Zustellung.</p>
+    </div>
+  </section>
+
+  <!-- Signup CTA -->
+  <section id="signup" class="bg-gradient-to-r from-blue-500 to-green-500 text-white py-16">
+    <div class="container mx-auto text-center">
+      <h3 class="text-3xl font-bold mb-4">Starte jetzt durch!</h3>
+      <p class="mb-6">Erstelle noch heute dein Merchant Center und gestalte dynamische Product Carousel Ads.</p>
+      <a href="./form.html" class="bg-white text-gray-800 px-8 py-4 rounded-full font-semibold hover:bg-gray-100">Jetzt registrieren</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-gray-400 py-6">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2025 AdMerchant Center. Alle Rechte vorbehalten.</p>
+    </div>
+  </footer>
+
+  <script>
+    let index = 0;
+    function showSlide(i) {
+      const inner = document.getElementById('carouselInner');
+      const count = inner.children.length;
+      index = (i + count) % count;
+      inner.style.transform = `translateX(-${index * 100}%)`;
+    }
+    function prevSlide() { showSlide(index - 1); }
+    function nextSlide() { showSlide(index + 1); }
+    setInterval(() => nextSlide(), 5000);
+  </script>
+</body>
+</html>
